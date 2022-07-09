@@ -1,0 +1,1 @@
+otvorila sam text file sa opcijom nano text2.txt i pisem blabla 
