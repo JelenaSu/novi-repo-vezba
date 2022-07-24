@@ -1,0 +1,406 @@
+{
+	"info": {
+		"_postman_id": "9a149659-6d20-412b-9841-3986ead19aa6",
+		"name": "NovaVezbaGallery",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21994596"
+	},
+	"item": [
+		{
+			"name": "All galleries",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/galleries?page=1&term=",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"galleries"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "term",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9nYWxsZXJ5LWFwaS52aXZpZnlpZGVhcy5jb21cL2FwaVwvYXV0aFwvcmVnaXN0ZXIiLCJpYXQiOjE2NTg2Nzg0MzQsImV4cCI6MTY1ODY4MjAzNCwibmJmIjoxNjU4Njc4NDM0LCJqdGkiOiI4d0NwOEQ1M2hkRWNHNHJIIiwic3ViIjo0NTcsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.hYmAbdBMno51w9byl2H-VPk2F4s4kFlOuVFUY6jJH1Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"first_name\": \"Zagor\",\r\n    \"last_name\": \"Te-Nej\",\r\n    \"email\": \"zagor123@gmail.com\",\r\n    \"password\": \"zagor123456\",\r\n    \"password_confirmation\": \"zagor123456\",\r\n    \"terms_and_conditions\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/auth/register",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"zagor123@gmail.com\",\r\n    \"password\": \"zagor123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/auth/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new gallery",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jasonData = pm.response.json();\r",
+							"pm.environment.set(\"galleryId\", jasonData.id);\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Zagor Te-Nej\",\r\n    \"description\": \"Duh sa sekirom\",\r\n    \"images\": [\r\n        \"https://i0.wp.com/shonery.rs/wp-content/uploads/2017/07/1370016000910-il_mio_nome_e_zagor.jpg?w=610&ssl=1\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/galleries",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"galleries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new gallery Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jasonData = pm.response.json();\r",
+							"pm.environment.set(\"galleryId\", jasonData.id);\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"{{$randomCatchPhrase}}\",\r\n    \"description\": \"{{$randomCatchPhraseDescriptor}}\",\r\n    \"images\": [\r\n        \"https://i0.wp.com/shonery.rs/wp-content/uploads/2017/07/1370016000910-il_mio_nome_e_zagor.jpg?w=610&ssl=1\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/galleries",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"galleries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "My gallery",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/galleries/{{galleryId}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"galleries",
+						"{{galleryId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit gallery",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Zagor Te-Nej\",\r\n    \"description\": \"hellooo\",\r\n    \"images\": [\r\n        \"https://i0.wp.com/shonery.rs/wp-content/uploads/2017/07/1370016000910-il_mio_nome_e_zagor.jpg?w=610&ssl=1\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/galleries/{{galleryId}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"galleries",
+						"{{galleryId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete my gallery",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/galleries/{{galleryId}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"galleries",
+						"{{galleryId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
